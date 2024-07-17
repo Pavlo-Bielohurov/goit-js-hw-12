@@ -1,15 +1,19 @@
-export function getPictures(name) {
-  const Key_Api = '44822255-685480c2b82623113acf30a35';
-  const imageType = 'photo';
-  const orientation = 'horizontal';
-  const safeSearch = true;
-  return fetch(
-    `https://pixabay.com/api/?key=${Key_Api}&q=${name}&image_type=${imageType}&orientation=${orientation}&safesearch=${safeSearch}`
-  ).then(res => {
-    console.log(res);
-    if (!res.ok) {
-      throw new Error(res.status);
-    }
-    return res.json();
-  });
+import axios from 'axios';
+
+const KEY_API = '44822255-685480c2b82623113acf30a35';
+
+export function getPictures({ q = '', page = 1, per_page = 1 } = {}) {
+  return axios
+    .get('https://pixabay.com/api/', {
+      params: {
+        key: KEY_API,
+        q,
+        page,
+        per_page,
+        imageType: 'photo',
+        orientation: 'horizontal',
+        safeSearch: true,
+      },
+    })
+    .then(({ data }) => data);
 }

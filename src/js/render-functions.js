@@ -1,9 +1,8 @@
 import SimpleLightbox from 'simplelightbox';
 
-export function galleryRender(arr) {
-  const galleryList = document.querySelector('.js-gallery');
-  galleryList.innerHTML = '';
+const galleryList = document.querySelector('.js-gallery');
 
+export function galleryRender(arr) {
   const markup = arr
     .map(
       ({
@@ -43,7 +42,7 @@ export function galleryRender(arr) {
     )
     .join('');
 
-  galleryList.insertAdjacentHTML('afterbegin', markup);
+  galleryList.insertAdjacentHTML('beforeend', markup);
 
   const lightbox = new SimpleLightbox('.gallery a', {
     captions: true,
@@ -53,4 +52,8 @@ export function galleryRender(arr) {
     overlayOpacity: 0.8,
   });
   lightbox;
+}
+
+export function galleryClear() {
+  galleryList.innerHTML = '';
 }
