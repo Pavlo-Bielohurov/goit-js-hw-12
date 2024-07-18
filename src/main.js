@@ -20,7 +20,7 @@ const params = {
   q: '',
   page: 1,
   per_page: 15,
-  maxPge: 0,
+  maxPage: 0,
 };
 
 form.addEventListener('submit', handleSearch);
@@ -50,7 +50,7 @@ async function handleSearch(evt) {
   try {
     const { total, hits } = await getPictures(params);
 
-    params.maxPge = Math.ceil(total / params.per_page);
+    params.maxPage = Math.ceil(total / params.per_page);
 
     if (hits.length === 0) {
       iziToast.info({
@@ -118,7 +118,7 @@ async function handleSearchMore() {
     hideLoader();
     BtnLoadMore.disabled = false;
 
-    if (params.page === params.maxPge) {
+    if (params.page === params.maxPage) {
       BtnLoadMore.style.display = 'none';
       BtnLoadMore.removeEventListener('click', handleSearchMore);
     }
